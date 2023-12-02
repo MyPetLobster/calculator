@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Dosis:wght@300;400&display=swap');
 @font-face {
     font-family: "Digital7";
     src: url("fonts/Digital7-rg1mL.ttf");
 }
+
 
 /* ----- UNIVERSAL ----- */
 *,
@@ -9,73 +11,69 @@
 *::after {
     box-sizing: border-box;
 }
-
 .flex {
     display: flex;
 }
-
 body {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
     height: 100vh;
     width: 100vw;
     margin: 0;
     padding: 0;
-    font-family: "";
+
     background-color: rgb(221, 221, 221);
     color: #28393D;
-
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    
 }
-
 .calculator-body {
-    background-color: rgb(20, 57, 136);
+    flex-direction: column;
+
     width: 350px;
     height: 700px;
-    flex-direction: column;
+    padding: 20px;
 
     border: 1px solid black;
     border-radius: 4px;
 
-    padding: 20px;
-
+    background-color: rgb(20, 57, 136);
 }
 
+
+/* ----------- Top Box ------------ */
 .top-box {
-    margin-top: 20px;
-    margin-bottom: 10px;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    
     height: 70px;
     width: 310px;
-    align-self: center;
-    justify-content: center;
-    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
 
     border: 1px solid black;
 }
 .display {
-    justify-content: center;
     align-items: center;
-
+    justify-content: center;
+    
     border: 1px solid black;
 }
 .display-outer {
-    width: 300px;
     height: 90%;
-
-    border: 1px solid black;
+    width: 300px;
     
+    border: 1px solid black;
 }
 .display-inner {
-    width: 290px;
     height: 90%;
-    border-radius: 5px;
-
+    width: 290px;
+    
     background-color: #28393D;
     color: #263638;
-
     border: 1px solid black;
+    border-radius: 5px;
 
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
@@ -86,29 +84,33 @@ body {
 .display-text {
     width: 95%;
     text-align: right;
+
     font-size: 48px;
     font-family: "Digital7";
+
     border: none;
-    
 }
 
+
+/* ----------- Solar Box ------------ */
 .solar-box {
     justify-content: space-between;
     color:#d5dbdd
 }
-
 .solar-title-text {
+    font-family: "Dosis";
     align-self: top;
     margin-top: 5px;
     font-size: 14px;
 }
 .model-text {
+    font-family: "Abril Fatface";
+    font-weight: 300;
     align-self: top;
     font-size: 32px;
     margin-top: 0;
     margin-right: 5px;
 }
-
 .panel {
     border: 1px solid black;
     height: 35px;
@@ -116,6 +118,8 @@ body {
     background-color: #28393D;
 }
 
+
+/* Buttons -- ** CSS Heavily inspired by Duolingo's buttons */
 .button-grid {
     margin-top: 65px;
     display: grid;
@@ -123,91 +127,77 @@ body {
     grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: minmax(70px, auto);
 }
+.button {
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+    padding: 13px 16px;
 
+    width: 100%;
 
+    font-family: "Dosis";
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    line-height: 20px;
+  
+    background-color: #8e9396;
+    color: #151515;
+    border: solid transparent;
+    border-radius: 8px;
+    border-width: 0 0 4px;
+    outline: none;
+    overflow: visible;
+    white-space: nowrap;
 
+    cursor: pointer;
+    appearance: button;
+
+    touch-action: manipulation;
+    transform: translateZ(0);
+    transition: filter .2s;
+    user-select: none;
+    -webkit-user-select: none;
+}
+.button:after {
+    content: "";
+    
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: -1;
+
+    background-clip: padding-box;
+    background-color: #b0b5b7;
+    border: solid transparent;
+    border-radius: 8px;
+    border-width: 0 0 4px;
+}
+.button:main,
+.button:focus {
+  user-select: auto;
+}
+.button:hover:not(:disabled) {
+  filter: brightness(1.1);
+  -webkit-filter: brightness(1.1);
+}
+.button:disabled {
+  cursor: auto;
+}
+.button:active {
+  border-width: 4px 0 0;
+  background: none;
+}
 #mode-toggle {
     font-size: 12px;
 }
 #equals {
     grid-column: span 2;
 }
-
-/* TEMP */
-
-/* * {
-    border: 1px solid black;
-} */
-
-
-
-
-/* CSS */
-.button {
-  appearance: button;
-  background-color: #8e9396;
-  border: solid transparent;
-  border-radius: 8px;
-  border-width: 0 0 4px;
-  box-sizing: border-box;
-  color: #151515;
-  cursor: pointer;
-  display: inline-block;
-  font-family: din-round,sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: .8px;
-  line-height: 20px;
-  margin: 0;
-  outline: none;
-  overflow: visible;
-  padding: 13px 16px;
-  text-align: center;
-  text-transform: uppercase;
-  touch-action: manipulation;
-  transform: translateZ(0);
-  transition: filter .2s;
-  user-select: none;
-  -webkit-user-select: none;
-  vertical-align: middle;
-  white-space: nowrap;
-  width: 100%;
-}
-
-.button:after {
-  background-clip: padding-box;
-  background-color: #b0b5b7;
-  border: solid transparent;
-  border-radius: 8px;
-  border-width: 0 0 4px;
-  bottom: -4px;
-  content: "";
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: -1;
-}
-
-.button:main,
-.button:focus {
-  user-select: auto;
-}
-
-.button:hover:not(:disabled) {
-  filter: brightness(1.1);
-  -webkit-filter: brightness(1.1);
-}
-
-.button:disabled {
-  cursor: auto;
-}
-
-.button:active {
-  border-width: 4px 0 0;
-  background: none;
-}
-
 .red-btn {
     color: white;
     background-color: rgb(131, 18, 18);
