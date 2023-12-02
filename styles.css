@@ -42,6 +42,7 @@ body {
 
 
 /* ----------- Top Box ------------ */
+
 .top-box {
     align-self: center;
     align-items: center;
@@ -52,7 +53,9 @@ body {
     margin-top: 20px;
     margin-bottom: 10px;
 
-    border: 1px solid black;
+    border: 1px solid rgb(11, 35, 87);
+    border-radius: 2px;
+    box-shadow: rgba(11, 35, 87, 0.484) 0px 15px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 .display {
     align-items: center;
@@ -64,7 +67,9 @@ body {
     height: 90%;
     width: 300px;
     
+    background-color: #4f4f4f;
     border: 1px solid black;
+    box-shadow: rgba(50, 50, 93, 0.563) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 .display-inner {
     height: 90%;
@@ -74,6 +79,7 @@ body {
     color: #263638;
     border: 1px solid black;
     border-radius: 5px;
+    
 
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
@@ -163,7 +169,7 @@ body {
 }
 .button:after {
     content: "";
-    
+
     position: absolute;
     bottom: -4px;
     left: 0;
