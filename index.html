@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
     <title>Calculator</title>
 </head>
-<body>
-    <div class="calculator-body">
+<body class="flex">
+    <div class="calculator-body flex">
 
-        <div class="main-child top-box">
-            <div class="display display-outer">
-                <div class="display display-inner">
+        <div class="main-child top-box flex">
+            <div class="display display-outer flex">
+                <div class="display display-inner flex">
                     <p class="display-text">
                         80085
                     </p>
@@ -18,12 +20,12 @@
             </div>
         </div>
 
-        <div class="main-child solar-box">
+        <div class="main-child solar-box flex">
             <div class="solar-left">
                 <p class="solar-title-text">
                     MyPetLobster Instruments
                 </p>
-                <div class="solar-panel">
+                <div class="solar-panel flex">
                     <div class="panel"></div>
                     <div class="panel"></div>
                     <div class="panel"></div>
@@ -39,29 +41,29 @@
 
         <div class="main-child button-countainer">
             <div class="button-grid">
-                <button id="on-c" class="button"></button>
-                <button id="backspace" class="button"></button>
-                <button id="mode-toggle" class="button"></button>
-                <button id="buttonide" class="button"></button>  
+                <button id="on-c" class="button red-btn"> ON/C</button>
+                <button id="backspace" class="button red-btn">&#9003;</button>
+                <button id="mode-toggle" class="button red-btn">Mode</button>
+                <button id="divide" class="button red-btn">&#247</button>  
 
-                <button id="seven" class="button"></button>
-                <button id="eight" class="button"></button>
-                <button id="nine" class="button"></button>
-                <button id="multiply" class="button"></button> 
+                <button id="seven" class="button">7</button>
+                <button id="eight" class="button">8</button>
+                <button id="nine" class="button">9</button>
+                <button id="multiply" class="button red-btn">&#215;</button> 
 
-                <button id="four" class="button"></button>
-                <button id="five" class="button"></button>
-                <button id="six" class="button"></button>
-                <button id="minus" class="button"></button>
+                <button id="four" class="button">4</button>
+                <button id="five" class="button">5</button>
+                <button id="six" class="button">6</button>
+                <button id="minus" class="button red-btn">-</button>
 
-                <button id="one" class="button"></button>
-                <button id="two" class="button"></button>
-                <button id="three" class="button"></button>
-                <button id="plus" class="button"></button>
+                <button id="one" class="button">1</button>
+                <button id="two" class="button">2</button>
+                <button id="three" class="button">3</button>
+                <button id="plus" class="button red-btn">+</button>
 
-                <button id="decimal" class="button"></button>
-                <button id="zero" class="button"></button>
-                <button id="equals" class="button"></button>
+                <button id="decimal" class="button">.</button>
+                <button id="zero" class="button">0</button>
+                <button id="equals" class="button red-btn">=</button>
             </div>
         </div>
 
