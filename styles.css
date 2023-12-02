@@ -73,6 +73,7 @@ body {
     border-radius: 5px;
 
     background-color: #28393D;
+    color: #263638;
 
     border: 1px solid black;
 
@@ -88,7 +89,7 @@ body {
     font-size: 48px;
     font-family: "Digital7";
     border: none;
-    color: #263638;
+    
 }
 
 .solar-box {
@@ -97,6 +98,8 @@ body {
 }
 
 .solar-title-text {
+    align-self: top;
+    margin-top: 5px;
     font-size: 14px;
 }
 .model-text {
