@@ -211,3 +211,28 @@ body {
 .red-btn:after {
     background-color: rgb(179, 41, 41);
 }
+
+.footer {
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 25px;
+    align-self: center;
+
+    font-family: "Digital7";
+    font-size: 13px;
+    color: #d5dbdd;
+    
+}
+a {
+    text-decoration: none;
+    color: #d5dbdd;
+
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+a:hover {
+    font-size: 14px;
+}

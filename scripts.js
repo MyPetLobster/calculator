@@ -46,7 +46,7 @@ solarPanel.addEventListener("mouseout", () => {
 onClear.addEventListener("click", () => {
     if (isOn === false) {
         powerUpCalc();
-        isOn === true;
+        isOn = true;
     }
     displayText.textContent = "0.";
 })
