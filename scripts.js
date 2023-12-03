@@ -47,11 +47,23 @@ numbers.forEach((num) => num.addEventListener("click", function(e) {
 function handleMathButtons(input) {
     if (isFirstNum) {
         newNum += input;
-        displayText.textContent = newNum;
+        if (newNum.includes(".")) {
+            displayText.textContent = newNum;
+        } else {
+            displayText.textContent = `${newNum}.0`
+        }
+        
+        
     } else {
         newNum += input;
-        currentDisplay += newNum;
-        displayText.textContent = currentDisplay;
+    
+        if (newNum.includes(".")) {
+            displayText.textContent = currentDisplay + newNum;
+        } else {
+            displayText.textContent = `${currentDisplay + newNum}.0`;
+        }
+        
+        
     }
 }
 
