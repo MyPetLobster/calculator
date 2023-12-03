@@ -1,9 +1,15 @@
 /////// VARIABLE DECLARATIONS ///////
 let oldNum = "";
 let newNum = "";
+
+let currentDisplay = "";
+
 let operator = "";
 
 let isOn = false;
+
+let displayTimeout;
+
 
 // Buttons
 let onClear = document.querySelector("#on-c");
@@ -20,9 +26,6 @@ let solarPanel = document.querySelector(".solar-panel");
 
 
 
-let displayTimeout;
-
-
 // Attach the event listener to your calculator buttons
 const calculatorButtons = document.querySelectorAll('.button');
 calculatorButtons.forEach(button => {
@@ -30,18 +33,56 @@ calculatorButtons.forEach(button => {
 });
 
 
-// Event listener for button clicks
 function handleButtonClick() {
-  // Your code to handle button click
-  console.log("Button clicked");
-  resetTimeout(); // Reset the timeout on button click
+    resetTimeout(); // Reset the timeout on button click
+
 }
 
+let isFirstNum = true;
+
+numbers.forEach((num) => num.addEventListener("click", function(e) {
+    handleMathButtons(e.target.textContent);
+}))
+
+function handleMathButtons(input) {
+    if (isFirstNum) {
+        newNum += input;
+        displayText.textContent = newNum;
+    } else {
+        newNum += input;
+        currentDisplay += newNum;
+        displayText.textContent = currentDisplay;
+    }
+}
+
+equals.addEventListener("click", () => {
+    newNum = +newNum;
+    oldNum = +oldNum;
+    if (operator === "+") {
+        currentDisplay = oldNum + newNum;
+    } else if (operator === "-") {
+        currentDisplay = oldNum - newNum;
+    } else if (operator === "×") {
+        currentDisplay = oldNum * newNum;
+    } else if (operator === "÷") {
+        currentDisplay = oldNum / newNum;
+    }
+    displayText.textContent = currentDisplay;
+})
 
 
+operators.forEach((opr) => opr.addEventListener("click", function(e) {
+    handleOperatorButtons(e.target.textContent);
+}))
 
-
-
+function handleOperatorButtons(input) {
+    operator = input;
+    currentDisplay = `${newNum} ${input} `;
+    displayText.textContent = currentDisplay;
+    isFirstNum = false;
+    oldNum = newNum;
+    newNum = "";
+}
 
 
 /////// FUNCTION DEFINITIONS ///////
@@ -98,6 +139,11 @@ onClear.addEventListener("click", () => {
         isOn = true;
     }
     displayText.textContent = "0.";
+    
+    oldNum = "";
+    newNum = "";
+    operator = "";
+    isFirstNum = true;
 })
 
 
