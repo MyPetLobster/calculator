@@ -1,62 +1,76 @@
 /////// VARIABLE DECLARATIONS ///////
+
+// Global Variables
 let oldNum = "";
 let newNum = "";
-
-let currentDisplay = "";
-
 let operator = "";
-
-let isOn = false;
-
-let isFirstEquals = true;
-
+let currentDisplay = "";
 let lastButtonPress = "";
 
+let isOn = false;
+let isFirstEquals = true;
 let isFirstOperator = true;
-
+let isFirstNum = true;
 
 let displayTimeout;
 
-
-
-
-
-
 // Buttons
-let onClear = document.querySelector("#on-c");
-let backspace = document.querySelector("#backspace");
-let mode = document.querySelector("#mode-toggle");
-let equals = document.querySelector("#equals")
-let numbers = document.querySelectorAll(".number");
-let operators = document.querySelectorAll(".operator")
+const onClear = document.querySelector("#on-c");
+const backspace = document.querySelector("#backspace");
+const mode = document.querySelector("#mode-toggle");
+const equals = document.querySelector("#equals")
+const numbers = document.querySelectorAll(".number");
+const operators = document.querySelectorAll(".operator")
 
 // Outputs etc.
-let displayText = document.querySelector(".display-text");
-let displayInner = document.querySelector(".display-inner");
-let solarPanel = document.querySelector(".solar-panel");
+const displayText = document.querySelector(".display-text");
+const displayInner = document.querySelector(".display-inner");
+const solarPanel = document.querySelector(".solar-panel");
 
 
-//////// TIMEOUT FUNCTION
-// Attach the event listener to your calculator buttons
+// TIMEOUT FUNCTIONALITY
 const calculatorButtons = document.querySelectorAll('.button');
 calculatorButtons.forEach(button => {
   button.addEventListener('click', handleButtonClick);
 });
 function handleButtonClick() {
     resetTimeout(); // Reset the timeout on button click
-
 }
 
 
+/////// FUNCTION DEFINITIONS ///////
+function powerUpCalc() {
+    resetTimeout();
+    displayInner.style.transition = "all 0.5s ease-in-out";
+    displayInner.style.backgroundColor = "#728173";
+    displayInner.style.color = "black";
+}
 
-let isFirstNum = true;
+function powerDownCalc() {
+    displayInner.style.transition = "all 0.8s ease-in-out";
+    displayInner.style.backgroundColor = "#28393D";
+    displayInner.style.color = "#263638";
+    isOn = false;
+}
 
-// NUMBER BUTTONS
-numbers.forEach((num) => num.addEventListener("click", function(e) {
-    handleMathButtons(e.target.textContent);
-}))
+function dimDisplay() {
+    displayInner.style.transition = "all 5s ease-in-out";
+    displayInner.style.backgroundColor = "#28393D";
+    displayInner.style.color = "#263638";
+}
 
-function handleMathButtons(input) {
+function brightenDisplay () {
+    displayInner.style.backgroundColor = "#728173";
+    displayInner.style.color = "black";
+    displayInner.style.transition = "all 5s ease-in-out";
+}
+
+function resetTimeout() {
+    clearTimeout(displayTimeout);
+    displayTimeout = setTimeout(powerDownCalc, 30000); // 30 seconds
+}
+
+function handleNumberButtons(input) {
     if (lastButtonPress === "equals") {
         isFirstNum = true;
         oldNum = "";
@@ -84,13 +98,9 @@ function handleMathButtons(input) {
     }
 }
 
-
-
 function evaluate(prev, current, opr) {
-
     newNumConverted = +current;
     oldNumConverted = +prev;
-
 
     if (opr === "+") {
         return oldNumConverted + newNumConverted;
@@ -101,14 +111,7 @@ function evaluate(prev, current, opr) {
     } else if (opr === "÷") {
         return oldNumConverted / newNumConverted;
     }
-
 }
-
-
-// OPERATOR BUTTONS
-operators.forEach((opr) => opr.addEventListener("click", function(e) {
-    handleOperatorButtons(e.target.textContent);
-}))
 
 function handleOperatorButtons(input) {
 
@@ -144,8 +147,19 @@ function handleOperatorButtons(input) {
 }
 
 
+/////// EVENT LISTENERS and ACTIONS ///////
 
+// OPERATOR BUTTONS
+operators.forEach((opr) => opr.addEventListener("click", function(e) {
+    handleOperatorButtons(e.target.textContent);
+}))
 
+// NUMBER BUTTONS
+numbers.forEach((num) => num.addEventListener("click", function(e) {
+    handleNumberButtons(e.target.textContent);
+}))
+
+// EQUALS BUTTON
 equals.addEventListener("click", () => {
 
     lastButtonPress = "equals";
@@ -170,46 +184,6 @@ equals.addEventListener("click", () => {
     oldNum = currentDisplay.toString();
 })
 
-
-/////// FUNCTION DEFINITIONS ///////
-function powerUpCalc() {
-    // Initial setup of the timeout
-    resetTimeout();
-
-    
-
-    displayInner.style.transition = "all 0.5s ease-in-out";
-    displayInner.style.backgroundColor = "#728173";
-    displayInner.style.color = "black";
-}
-// Function to fade the display
-function powerDownCalc() {
-    displayInner.style.transition = "all 0.8s ease-in-out";
-    displayInner.style.backgroundColor = "#28393D";
-    displayInner.style.color = "#263638";
-    isOn = false;
-  }
-function dimDisplay() {
-    displayInner.style.transition = "all 5s ease-in-out";
-    displayInner.style.backgroundColor = "#28393D";
-    displayInner.style.color = "#263638";
-}
-function brightenDisplay () {
-    displayInner.style.backgroundColor = "#728173";
-    displayInner.style.color = "black";
-    displayInner.style.transition = "all 5s ease-in-out";
-}
-// Function to reset the timeout
-function resetTimeout() {
-    clearTimeout(displayTimeout);
-    displayTimeout = setTimeout(powerDownCalc, 30000); // 30 seconds
-  }
-
-/////// EVENT LISTENERS and ACTIONS ///////
-
-
-
-
 // Solar Easter Egg
 solarPanel.addEventListener("mouseover", () => {
     if (isOn) {
@@ -221,6 +195,7 @@ solarPanel.addEventListener("mouseout", () => {
         brightenDisplay();
     }
 })
+
 // Clear Button
 onClear.addEventListener("click", () => {
     if (isOn === false) {
@@ -230,7 +205,6 @@ onClear.addEventListener("click", () => {
     displayText.textContent = "0.";
     
     isFirstOperator = true;
-
     isFirstEquals = true;
     oldNum = "";
     newNum = "";
