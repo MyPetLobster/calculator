@@ -20,7 +20,7 @@ const backspace = document.querySelector("#backspace");
 const mode = document.querySelector("#mode-toggle");
 const equals = document.querySelector("#equals")
 const numbers = document.querySelectorAll(".number");
-const operators = document.querySelectorAll(".operator")
+const operators = document.querySelectorAll(".operator");
 
 // Outputs etc.
 const displayText = document.querySelector(".display-text");
@@ -212,7 +212,9 @@ onClear.addEventListener("click", () => {
     isFirstNum = true;
 })
 
-
+backspace.addEventListener("click", () => {
+    newNum = ne
+})
 
 
 
