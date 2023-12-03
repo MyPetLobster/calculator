@@ -45,55 +45,26 @@ function powerUpCalc() {
     displayInner.style.backgroundColor = "#728173";
     displayInner.style.color = "black";
 }
-
 function powerDownCalc() {
     displayInner.style.transition = "all 0.8s ease-in-out";
     displayInner.style.backgroundColor = "#28393D";
     displayInner.style.color = "#263638";
     isOn = false;
 }
-
 function dimDisplay() {
     displayInner.style.transition = "all 5s ease-in-out";
     displayInner.style.backgroundColor = "#28393D";
     displayInner.style.color = "#263638";
 }
-
 function brightenDisplay () {
     displayInner.style.backgroundColor = "#728173";
     displayInner.style.color = "black";
     displayInner.style.transition = "all 5s ease-in-out";
 }
-
 function resetTimeout() {
     clearTimeout(displayTimeout);
     displayTimeout = setTimeout(powerDownCalc, 30000); // 30 seconds
 }
-
-
-backspace.addEventListener("click", () => {
-
-    if (newNum === "") {
-        if (operator === "") {
-            console.log("clearing all");
-            clearAll();
-        } else {
-            operator = "";
-
-            displayText.textContent = `${oldNum} `;
-            lastButtonPress = "number";
-            newNum = oldNum;
-            oldNum = "";
-            isFirstOperator = true;
-        }
-        
-    } else {
-        newNum = newNum.slice(0, -1);
-        handleNumberButtons("");
-    } 
-});
-
-
 function handleNumberButtons(input) {
     if (lastButtonPress === "equals") {
         isFirstNum = true;
@@ -121,22 +92,6 @@ function handleNumberButtons(input) {
         }
     }
 }
-
-function evaluate(prev, current, opr) {
-    newNumConverted = +current;
-    oldNumConverted = +prev;
-
-    if (opr === "+") {
-        return oldNumConverted + newNumConverted;
-    } else if (opr === "-") {
-        return oldNumConverted - newNumConverted;
-    } else if (opr === "×") {
-        return oldNumConverted * newNumConverted;
-    } else if (opr === "÷") {
-        return oldNumConverted / newNumConverted;
-    }
-}
-
 function handleOperatorButtons(input) {
     lastButtonPress = "operator";
 
@@ -163,7 +118,20 @@ function handleOperatorButtons(input) {
         isFirstNum = false;
     }
 }
+function evaluate(prev, current, opr) {
+    newNumConverted = +current;
+    oldNumConverted = +prev;
 
+    if (opr === "+") {
+        return oldNumConverted + newNumConverted;
+    } else if (opr === "-") {
+        return oldNumConverted - newNumConverted;
+    } else if (opr === "×") {
+        return oldNumConverted * newNumConverted;
+    } else if (opr === "÷") {
+        return oldNumConverted / newNumConverted;
+    }
+}
 function clearAll() {
     currentDisplay = "0.";
     displayText.textContent = currentDisplay;
@@ -175,18 +143,75 @@ function clearAll() {
     isFirstEquals = true;
 }
 
+function deleteChar() {
+    console.log(`oldNum = ${oldNum}`);
+    console.log(`newNum = ${newNum}`);
+    console.log(`operator = ${operator}`);
+    console.log('-----------');
+
+    if (oldNum && newNum && operator) {
+        newNum = newNum.slice(0, -1);
+        currentDisplay = `${oldNum} ${operator} ${newNum}`;
+    } else if (oldNum && operator) {
+        operator = "";
+        currentDisplay = `${oldNum} ${operator} ${newNum}`;
+        isFirstOperator = true;
+        newNum = oldNum;
+    } else if (oldNum) {
+        if (oldNum.length > 1) {
+            oldNum = oldNum.slice(0, -1);
+            currentDisplay = `${oldNum} ${operator}`;
+        } else {
+            clearAll();
+        }
+    }
+    displayText.textContent = currentDisplay;
+}
+
+backspace.addEventListener("click", () => {
+    deleteChar();
+});
+
+
+// backspace.addEventListener("click", () => {
+//     console.log(`oldNum = ${oldNum}`);
+//     console.log(`newNum = ${newNum}`);
+//     console.log(`operator = ${operator}`);
+//     if (newNum === "") {
+//         if ((oldNum.length == 1) && (operator == "")) {
+//             console.log("clearing all");
+//             clearAll();
+//         } else {
+//             operator = "";
+
+//             displayText.textContent = `${oldNum} `;
+//             lastButtonPress = "number";
+//             newNum = oldNum;
+//             oldNum = "";
+//             isFirstOperator = true;
+//         }
+        
+//     } else {
+//         newNum = newNum.slice(0, -1);
+        
+//         handleNumberButtons("");
+       
+//     } 
+// });
 
 /////// EVENT LISTENERS and ACTIONS ///////
+
+// NUMBER BUTTONS
+numbers.forEach((num) => num.addEventListener("click", function(e) {
+    handleNumberButtons(e.target.textContent);
+}))
 
 // OPERATOR BUTTONS
 operators.forEach((opr) => opr.addEventListener("click", function(e) {
     handleOperatorButtons(e.target.textContent);
 }))
 
-// NUMBER BUTTONS
-numbers.forEach((num) => num.addEventListener("click", function(e) {
-    handleNumberButtons(e.target.textContent);
-}))
+
 
 // EQUALS BUTTON
 equals.addEventListener("click", () => {
