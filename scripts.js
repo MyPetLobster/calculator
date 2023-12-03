@@ -10,6 +10,8 @@ let isOn = false;
 
 let isFirstEquals = true;
 
+let lastButtonPress = "";
+
 
 let displayTimeout;
 
@@ -49,6 +51,15 @@ numbers.forEach((num) => num.addEventListener("click", function(e) {
 }))
 
 function handleMathButtons(input) {
+    if (lastButtonPress === "equals") {
+        isFirstNum = true;
+        oldNum = "";
+        newNum = "";
+    }
+
+    isFirstEquals = true;
+    lastButtonPress = "number";
+
     if (isFirstNum) {
         newNum += input;
         if (newNum.includes(".")) {
@@ -73,6 +84,7 @@ operators.forEach((opr) => opr.addEventListener("click", function(e) {
 }))
 
 function handleOperatorButtons(input) {
+    lastButtonPress = "operator";
     if (isFirstEquals) {
         oldNum = newNum;
     }   
@@ -81,11 +93,12 @@ function handleOperatorButtons(input) {
     currentDisplay = `${oldNum} ${input} `;
     displayText.textContent = currentDisplay;
     isFirstNum = false;
-    
 }
 
 
 equals.addEventListener("click", () => {
+
+    lastButtonPress = "equals";
 
     isFirstEquals = false;
 
@@ -117,7 +130,7 @@ function powerUpCalc() {
     // Initial setup of the timeout
     resetTimeout();
 
-    isFirstEquals = true;
+    
 
     displayInner.style.transition = "all 0.5s ease-in-out";
     displayInner.style.backgroundColor = "#728173";
@@ -170,6 +183,7 @@ onClear.addEventListener("click", () => {
     }
     displayText.textContent = "0.";
     
+    isFirstEquals = true;
     oldNum = "";
     newNum = "";
     operator = "";
