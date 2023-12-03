@@ -70,6 +70,23 @@ function resetTimeout() {
     displayTimeout = setTimeout(powerDownCalc, 30000); // 30 seconds
 }
 
+
+backspace.addEventListener("click", () => {
+    if (lastButtonPress === "operator") {
+        operator = "";
+        displayText.textContent = `${oldNum} `;
+        lastButtonPress = "number";
+        newNum = oldNum;
+        oldNum = "";
+        isFirstOperator = true;
+    } else if (lastButtonPress === "number") {
+        newNum = newNum.slice(0, -1);
+        handleNumberButtons("");
+    }
+    
+})
+
+
 function handleNumberButtons(input) {
     if (lastButtonPress === "equals") {
         isFirstNum = true;
@@ -115,8 +132,11 @@ function evaluate(prev, current, opr) {
 
 function handleOperatorButtons(input) {
 
+    console.log(`input = ${input}`);
     console.log(`oldNum = ${oldNum}`);
     console.log(`newNum = ${newNum}`);
+    console.log(`operator = ${operator}`);
+
     lastButtonPress = "operator";
 
     if (isFirstOperator) {
@@ -130,13 +150,10 @@ function handleOperatorButtons(input) {
         isFirstNum = false;
         isFirstOperator = false;
     } else {
-        console.log(`oldNum before eval = ${oldNum}`);
-        console.log(`newNum before eval = ${newNum}`);
-        console.log(`operator before eval = ${operator}`);
+
 
         oldNum = evaluate(oldNum, newNum, operator);
 
-        console.log(`oldNum after eval = ${oldNum}`);
 
         operator = input;
         newNum = "";
@@ -212,9 +229,7 @@ onClear.addEventListener("click", () => {
     isFirstNum = true;
 })
 
-backspace.addEventListener("click", () => {
-    newNum = ne
-})
+
 
 
 
