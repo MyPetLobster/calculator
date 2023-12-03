@@ -8,6 +8,9 @@ let operator = "";
 
 let isOn = false;
 
+let isFirstEquals = true;
+
+
 let displayTimeout;
 
 
@@ -70,11 +73,11 @@ operators.forEach((opr) => opr.addEventListener("click", function(e) {
 }))
 
 function handleOperatorButtons(input) {
-
+    if (isFirstEquals) {
+        oldNum = newNum;
+    }   
     operator = input;
-    oldNum = newNum;
     newNum = "";
-
     currentDisplay = `${oldNum} ${input} `;
     displayText.textContent = currentDisplay;
     isFirstNum = false;
@@ -83,8 +86,16 @@ function handleOperatorButtons(input) {
 
 
 equals.addEventListener("click", () => {
+
+    isFirstEquals = false;
+
     newNumConverted = +newNum;
     oldNumConverted = +oldNum;
+
+    console.log(`oldNum = ${oldNum}`);
+    console.log(`newNum = ${newNum}`);
+   
+
     if (operator === "+") {
         currentDisplay = oldNumConverted + newNumConverted;
     } else if (operator === "-") {
@@ -94,8 +105,9 @@ equals.addEventListener("click", () => {
     } else if (operator === "÷") {
         currentDisplay = oldNumConverted / newNumConverted;
     }
+
     displayText.textContent = currentDisplay;
-    newNum = currentDisplay.toString();
+    oldNum = currentDisplay.toString();
 })
 
 
@@ -104,6 +116,9 @@ equals.addEventListener("click", () => {
 function powerUpCalc() {
     // Initial setup of the timeout
     resetTimeout();
+
+    isFirstEquals = true;
+
     displayInner.style.transition = "all 0.5s ease-in-out";
     displayInner.style.backgroundColor = "#728173";
     displayInner.style.color = "black";
