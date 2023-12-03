@@ -12,8 +12,14 @@ let isFirstEquals = true;
 
 let lastButtonPress = "";
 
+let isFirstOperator = true;
+
 
 let displayTimeout;
+
+
+
+
 
 
 // Buttons
@@ -78,22 +84,66 @@ function handleMathButtons(input) {
     }
 }
 
+
+
+function evaluate(prev, current, opr) {
+
+    newNumConverted = +current;
+    oldNumConverted = +prev;
+
+
+    if (opr === "+") {
+        return oldNumConverted + newNumConverted;
+    } else if (opr === "-") {
+        return oldNumConverted - newNumConverted;
+    } else if (opr === "×") {
+        return oldNumConverted * newNumConverted;
+    } else if (opr === "÷") {
+        return oldNumConverted / newNumConverted;
+    }
+
+}
+
+
 // OPERATOR BUTTONS
 operators.forEach((opr) => opr.addEventListener("click", function(e) {
     handleOperatorButtons(e.target.textContent);
 }))
 
 function handleOperatorButtons(input) {
+
+    console.log(`oldNum = ${oldNum}`);
+    console.log(`newNum = ${newNum}`);
     lastButtonPress = "operator";
-    if (isFirstEquals) {
-        oldNum = newNum;
-    }   
-    operator = input;
-    newNum = "";
-    currentDisplay = `${oldNum} ${input} `;
-    displayText.textContent = currentDisplay;
-    isFirstNum = false;
+
+    if (isFirstOperator) {
+        if (isFirstEquals) {
+            oldNum = newNum;
+        }   
+        operator = input;
+        newNum = "";
+        currentDisplay = `${oldNum} ${input} `;
+        displayText.textContent = currentDisplay;
+        isFirstNum = false;
+        isFirstOperator = false;
+    } else {
+        console.log(`oldNum before eval = ${oldNum}`);
+        console.log(`newNum before eval = ${newNum}`);
+        console.log(`operator before eval = ${operator}`);
+
+        oldNum = evaluate(oldNum, newNum, operator);
+
+        console.log(`oldNum after eval = ${oldNum}`);
+
+        operator = input;
+        newNum = "";
+        currentDisplay = `${oldNum} ${input} `;
+        displayText.textContent = currentDisplay;
+        isFirstNum = false;
+    }
 }
+
+
 
 
 equals.addEventListener("click", () => {
@@ -101,13 +151,10 @@ equals.addEventListener("click", () => {
     lastButtonPress = "equals";
 
     isFirstEquals = false;
+    isFirstOperator = true;
 
     newNumConverted = +newNum;
     oldNumConverted = +oldNum;
-
-    console.log(`oldNum = ${oldNum}`);
-    console.log(`newNum = ${newNum}`);
-   
 
     if (operator === "+") {
         currentDisplay = oldNumConverted + newNumConverted;
@@ -122,7 +169,6 @@ equals.addEventListener("click", () => {
     displayText.textContent = currentDisplay;
     oldNum = currentDisplay.toString();
 })
-
 
 
 /////// FUNCTION DEFINITIONS ///////
@@ -183,6 +229,8 @@ onClear.addEventListener("click", () => {
     }
     displayText.textContent = "0.";
     
+    isFirstOperator = true;
+
     isFirstEquals = true;
     oldNum = "";
     newNum = "";
