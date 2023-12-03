@@ -25,21 +25,22 @@ let displayInner = document.querySelector(".display-inner");
 let solarPanel = document.querySelector(".solar-panel");
 
 
-
+//////// TIMEOUT FUNCTION
 // Attach the event listener to your calculator buttons
 const calculatorButtons = document.querySelectorAll('.button');
 calculatorButtons.forEach(button => {
   button.addEventListener('click', handleButtonClick);
 });
-
-
 function handleButtonClick() {
     resetTimeout(); // Reset the timeout on button click
 
 }
 
+
+
 let isFirstNum = true;
 
+// NUMBER BUTTONS
 numbers.forEach((num) => num.addEventListener("click", function(e) {
     handleMathButtons(e.target.textContent);
 }))
@@ -52,49 +53,51 @@ function handleMathButtons(input) {
         } else {
             displayText.textContent = `${newNum}.0`
         }
-        
-        
+
     } else {
         newNum += input;
-    
         if (newNum.includes(".")) {
             displayText.textContent = currentDisplay + newNum;
         } else {
             displayText.textContent = `${currentDisplay + newNum}.0`;
         }
-        
-        
     }
 }
 
-equals.addEventListener("click", () => {
-    newNum = +newNum;
-    oldNum = +oldNum;
-    if (operator === "+") {
-        currentDisplay = oldNum + newNum;
-    } else if (operator === "-") {
-        currentDisplay = oldNum - newNum;
-    } else if (operator === "×") {
-        currentDisplay = oldNum * newNum;
-    } else if (operator === "÷") {
-        currentDisplay = oldNum / newNum;
-    }
-    displayText.textContent = currentDisplay;
-})
-
-
+// OPERATOR BUTTONS
 operators.forEach((opr) => opr.addEventListener("click", function(e) {
     handleOperatorButtons(e.target.textContent);
 }))
 
 function handleOperatorButtons(input) {
+
     operator = input;
-    currentDisplay = `${newNum} ${input} `;
-    displayText.textContent = currentDisplay;
-    isFirstNum = false;
     oldNum = newNum;
     newNum = "";
+
+    currentDisplay = `${oldNum} ${input} `;
+    displayText.textContent = currentDisplay;
+    isFirstNum = false;
+    
 }
+
+
+equals.addEventListener("click", () => {
+    newNumConverted = +newNum;
+    oldNumConverted = +oldNum;
+    if (operator === "+") {
+        currentDisplay = oldNumConverted + newNumConverted;
+    } else if (operator === "-") {
+        currentDisplay = oldNumConverted - newNumConverted;
+    } else if (operator === "×") {
+        currentDisplay = oldNumConverted * newNumConverted;
+    } else if (operator === "÷") {
+        currentDisplay = oldNumConverted / newNumConverted;
+    }
+    displayText.textContent = currentDisplay;
+    newNum = currentDisplay.toString();
+})
+
 
 
 /////// FUNCTION DEFINITIONS ///////
