@@ -112,14 +112,19 @@ function handleOperatorButtons(input) {
         isFirstNum = false;
         isFirstOperator = false;
     } else {
-
+        let tempNum = oldNum;
         oldNum = evaluate(oldNum, newNum, operator);
-
-        operator = input;
-        newNum = "";
-        currentDisplay = `${oldNum} ${input} `;
-        displayText.textContent = currentDisplay;
-        isFirstNum = false;
+        if (oldNum !== undefined) {
+            operator = input;
+            newNum = "";
+            currentDisplay = `${oldNum} ${input} `;
+            displayText.textContent = currentDisplay;
+            isFirstNum = false;
+        } else {
+            oldNum = tempNum;
+            newNum = "";
+        }
+        
     }
 }
 function evaluate(prev, current, opr) {
@@ -133,7 +138,17 @@ function evaluate(prev, current, opr) {
     } else if (opr === "×") {
         return oldNumConverted * newNumConverted;
     } else if (opr === "÷") {
-        return oldNumConverted / newNumConverted;
+        if (newNumConverted === 0) {
+            displayText.textContent = "can't do that";
+            setTimeout(() => {
+                displayText.textContent = `${oldNumConverted} ${operator}`;
+                return oldNumConverted;
+            }, 2000);
+            
+        } else {
+            return oldNumConverted / newNumConverted;
+        }
+        
     } else if (opr === "^") {
         return oldNumConverted ** newNumConverted;
     }
@@ -147,6 +162,7 @@ function clearAll() {
     isFirstNum = true;
     isFirstOperator = true;
     isFirstEquals = true;
+    displayText.style.transition = "none";
 }
 function deleteChar() {
     console.log(`oldNum = ${oldNum}`);
@@ -176,7 +192,15 @@ function deleteChar() {
     }
     displayText.textContent = currentDisplay;
 }
+function error() {
+    displayText.textContent = "can't do that";
+    setTimeout(clearAll, 2000);
+}
 
+// function boob() {
+//     alert("boob");
+//     displayText.textContent = "...u 8008";
+// }
 // BACKSPACE
 backspace.addEventListener("click", () => {
     deleteChar();
@@ -212,7 +236,12 @@ equals.addEventListener("click", () => {
     } else if (operator === "×") {
         currentDisplay = oldNumConverted * newNumConverted;
     } else if (operator === "÷") {
-        currentDisplay = oldNumConverted / newNumConverted;
+        if (newNumConverted === 0) {
+            error();
+            return;
+        } else {
+            currentDisplay = oldNumConverted / newNumConverted;
+        }
     } else if (operator === "^") {
         currentDisplay = oldNumConverted ** newNumConverted;
     }
