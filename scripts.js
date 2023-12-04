@@ -76,7 +76,13 @@ function handleNumberButtons(input) {
     lastButtonPress = "number";
 
     if (isFirstNum) {
-        newNum += input;
+        // Set max num length to 10 digits
+        if ((newNum + input).length > 10) {
+            alert("max num length");
+        } else {
+            newNum += input;
+        }
+        
         if (newNum.includes(".")) {
             displayText.textContent = newNum;
         } else {
@@ -84,15 +90,43 @@ function handleNumberButtons(input) {
         }
 
     } else {
-        newNum += input;
-        if (newNum.includes(".")) {
-            displayText.textContent = currentDisplay + newNum;
+        // If length of oldNum is greater than 5, preemptively hide oldNum from display
+        if (oldNum.length > 5) {
+            newNum += input;
+            if (newNum.includes(".")) {
+                displayText.textContent = newNum;
+            } else {
+                displayText.textContent = `${newNum}.0`;
+            }
         } else {
-            displayText.textContent = `${currentDisplay + newNum}.0`;
+            // check if length of oldNum and newNum exceeds 10 char
+            if ((`${oldNum} ${operator} ${newNum}`).length > 10) {
+                newNum += input;
+                if (newNum.includes(".")) {
+                    displayText.textContent = newNum;
+                } else {
+                    displayText.textContent = `${newNum}.0`;
+                } 
+            } else {
+                newNum += input;
+                if (newNum.includes(".")) {
+                    displayText.textContent = currentDisplay + newNum;
+                } else {
+                    displayText.textContent = `${currentDisplay + newNum}.0`;
+                }
+            }
+
         }
+
+        
     }
 }
 function handleOperatorButtons(input) {
+
+    alert(`oldNum = ${oldNum}`);
+    alert(`newNum = ${newNum}`);
+    alert(`operator = ${operator}`);
+
     lastButtonPress = "operator";
     
     if (input === "xy") {
@@ -105,7 +139,14 @@ function handleOperatorButtons(input) {
         }   
         operator = input;
         newNum = "";
-        currentDisplay = `${oldNum} ${input} `;
+        // Set "currentDisplay" to be used by handleNum on second operand
+        // if oldNum longer than 6 char, hide it
+        if (oldNum.length > 6) {
+            currentDisplay = `${input} `;
+        } else {
+            currentDisplay = `${oldNum} ${input} `;
+        }
+        
         displayText.textContent = currentDisplay;
         isFirstNum = false;
         isFirstOperator = false;
@@ -130,11 +171,11 @@ function evaluate(prev, current, opr) {
     oldNumConverted = +prev;
 
     if (opr === "+") {
-        return oldNumConverted + newNumConverted;
+        return formatDisplayText(oldNumConverted + newNumConverted);
     } else if (opr === "-") {
-        return oldNumConverted - newNumConverted;
+        return formatDisplayText(oldNumConverted - newNumConverted);
     } else if (opr === "×") {
-        return oldNumConverted * newNumConverted;
+        return formatDisplayText(oldNumConverted * newNumConverted);
     } else if (opr === "÷") {
         if (newNumConverted === 0) {
             displayText.textContent = "can't do that";
@@ -144,11 +185,11 @@ function evaluate(prev, current, opr) {
             }, 2000);
             
         } else {
-            return oldNumConverted / newNumConverted;
+            return formatDisplayText(oldNumConverted / newNumConverted);
         }
         
     } else if (opr === "^") {
-        return oldNumConverted ** newNumConverted;
+        return formatDisplayText(oldNumConverted ** newNumConverted);
     }
 }
 function clearAll() {
@@ -206,29 +247,22 @@ function handleButtonClick() {
 }
 
 
-
+////// E NOTATION
 function formatDisplayText(text) {
-    // Check if the text exceeds 12 characters
-    if (text.length > 13) {
-        // Shrink text
-        displayText.style.fontSize = "34px";
-    } 
-    if (text.length > 18) {
+    // Check if the text exceeds 10 characters
+    text = text.toString();
+
+    // alert(text.length = `${text.length}`);
+    // alert(`text = ${text}`);
+
+    if (text.length > 10) {
         // Convert the number to scientific notation
         const num = parseFloat(text).toExponential(6);
         return num;
     }
-    // Back to Regular Size font
-    if (text.length < 13) {
-        displayText.style.fontSize = "48px";
-    }
-    return text;
+    return text
 }
 
-function roundPrecision(number) {
-    let roundedNumber = number.toPrecision(16);
-    return roundedNumber;
-}
 
 
 ///// EVENT LISTENERS and ACTIONS /////
@@ -275,7 +309,7 @@ equals.addEventListener("click", () => {
     }
 
     /////
-    displayText.textContent = currentDisplay;
+    displayText.textContent = formatDisplayText(currentDisplay);
 
     oldNum = currentDisplay.toString();
 });
@@ -290,7 +324,7 @@ onClear.addEventListener("click", () => {
 // SQUARED
 xSquaredButton.addEventListener("click", () => {
     oldNum = oldNum ** 2;
-    displayText.textContent = oldNum;
+    displayText.textContent = formatDisplayText(oldNum);
     isFirstOperator = true;
     newNum = oldNum;
 
