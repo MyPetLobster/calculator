@@ -64,6 +64,8 @@ function resetTimeout() {
     displayTimeout = setTimeout(powerDownCalc, 45000); // 45 seconds
 }
 function handleNumberButtons(input) {
+    
+    
     if (lastButtonPress === "equals") {
         isFirstNum = true;
         oldNum = "";
@@ -78,7 +80,7 @@ function handleNumberButtons(input) {
         if (newNum.includes(".")) {
             displayText.textContent = newNum;
         } else {
-            displayText.textContent = `${newNum}.0`
+            displayText.textContent = `${newNum}.0`;
         }
 
     } else {
@@ -198,6 +200,30 @@ function handleButtonClick() {
 
 
 
+function formatDisplayText(text) {
+    // Check if the text exceeds 12 characters
+    if (text.length > 13) {
+        // Shrink text
+        displayText.style.fontSize = "34px";
+    } 
+    if (text.length > 18) {
+        // Convert the number to scientific notation
+        const num = parseFloat(text).toExponential(6);
+        return num;
+    }
+    // Back to Regular Size font
+    if (text.length < 13) {
+        displayText.style.fontSize = "48px";
+    }
+    return text;
+}
+
+function roundPrecision(number) {
+    let roundedNumber = number.toPrecision(16);
+    return roundedNumber;
+}
+
+
 ///// EVENT LISTENERS and ACTIONS /////
 // BACKSPACE
 backspace.addEventListener("click", () => {
@@ -214,9 +240,6 @@ operators.forEach((opr) => opr.addEventListener("click", function(e) {
 }));
 // EQUALS BUTTON
 equals.addEventListener("click", () => {
-
-    // console.log(`oldNum = ${oldNum}`);
-    // console.log(`newNum = ${newNum}`);
     console.log(`operator = ${operator}`);
 
     lastButtonPress = "equals";
@@ -244,7 +267,9 @@ equals.addEventListener("click", () => {
         currentDisplay = oldNumConverted ** newNumConverted;
     }
 
+    /////
     displayText.textContent = currentDisplay;
+
     oldNum = currentDisplay.toString();
 });
 // CLEAR BUTTON
@@ -355,3 +380,5 @@ mode.addEventListener("mouseup", () => {
 // console.log(`oldNum = ${oldNum}`);
 // console.log(`newNum = ${newNum}`);
 // console.log(`operator = ${operator}`);
+
+
