@@ -72,8 +72,6 @@ function resetTimeout() {
     displayTimeout = setTimeout(powerDownCalc, 45000); // 45 seconds
 }
 function handleNumberButtons(input) {
-    
-    
     if (lastButtonPress === "equals") {
         isFirstNum = true;
         oldNum = "";
@@ -86,6 +84,7 @@ function handleNumberButtons(input) {
     if (isFirstNum) {
         // Set max num length to 10 digits
         if ((newNum + input).length > 10) {
+            // Nothing happens
         } else {
             newNum += input;
         }
@@ -99,7 +98,13 @@ function handleNumberButtons(input) {
     } else {
         // If length of oldNum is greater than 5, preemptively hide oldNum from display
         if (oldNum.length > 5) {
-            newNum += input;
+            // Check if length of second number exceeds 10 char
+            if ((newNum + input).length > 10) {
+                // Nothing happens
+            } else { 
+                newNum += input;
+            }
+            
             if (newNum.includes(".")) {
                 displayText.textContent = newNum;
             } else {
@@ -108,14 +113,22 @@ function handleNumberButtons(input) {
         } else {
             // check if length of oldNum and newNum exceeds 10 char
             if ((`${oldNum} ${operator} ${newNum}`).length > 10) {
-                newNum += input;
+                if ((newNum + input).length > 10) {
+                    // Nothing happens
+                } else { 
+                    newNum += input;
+                }
                 if (newNum.includes(".")) {
                     displayText.textContent = newNum;
                 } else {
                     displayText.textContent = `${newNum}.0`;
                 } 
             } else {
-                newNum += input;
+                if ((newNum + input).length > 10) {
+                    // Nothing happens
+                } else { 
+                    newNum += input;
+                }
                 if (newNum.includes(".")) {
                     displayText.textContent = currentDisplay + newNum;
                 } else {
@@ -246,9 +259,6 @@ function error() {
     displayText.textContent = "can't do that";
     setTimeout(clearAll, 2000);
 }
-function handleButtonClick() {
-    resetTimeout(); // Reset the timeout on button click
-}
 function formatDisplayText(text) {
     // Check if the text exceeds 10 characters
     text = text.toString();
@@ -305,9 +315,7 @@ equals.addEventListener("click", () => {
         currentDisplay = oldNumConverted ** newNumConverted;
     }
 
-    /////
     displayText.textContent = formatDisplayText(currentDisplay);
-
     oldNum = currentDisplay.toString();
 });
 // CLEAR BUTTON
@@ -413,7 +421,7 @@ solarPanel.addEventListener("touchend", () => {
 // TIMEOUT FUNCTIONALITY
 calculatorButtons.forEach(button => {
     button.addEventListener('click', () => {
-        handleButtonClick;
+        resetTimeout(); // Reset the timeout on button click
         clickAudio.play();
     });
     

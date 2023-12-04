@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Dosis:wght@300;400;500;600;700&display=swap');
 @font-face {
-    font-family: "Digital7";
+    font-family: "Digital7", sans-serif;
     src: url("fonts/Digital7-rg1mL.ttf");
 }
 
@@ -116,7 +116,7 @@ body {
     text-align: right;
 
     font-size: 48px;
-    font-family: "Digital7";
+    font-family: "Digital7", sans-serif;
 
     border: none;
 }
@@ -130,13 +130,13 @@ body {
     
 }
 .solar-title-text {
-    font-family: "Dosis";
+    font-family: "Dosis", sans-serif;
     align-self: top;
     margin-top: 5px;
     font-size: 14px;
 }
 .model-text {
-    font-family: "Abril Fatface";
+    font-family: "Abril Fatface", serif;
     font-weight: 300;
     align-self: top;
     font-size: 32px;
@@ -175,7 +175,7 @@ body {
 
     width: 100%;
 
-    font-family: "Dosis";
+    font-family: "Dosis", sans-serif;
     text-align: center;
     font-size: 18px;
     font-weight: 500;
@@ -268,7 +268,7 @@ body {
     margin-top: 32px;
     align-self: center;
 
-    font-family: "Digital7";
+    font-family: "Digital7", sans-serif;
     font-size: 13px;
     color: #d5dbdd;
     
@@ -304,11 +304,10 @@ sup {
     text-decoration: none;
     border: none;
     background: transparent;
-    font-family: Digital7;
+    font-family: Digital7, sans-serif;
     font-size: 13px;
     color: #d5dbdd;
 }
-
 #mute:hover {
     font-size: 15px;
 }
