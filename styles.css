@@ -266,7 +266,8 @@ a:hover {
 }
 
 #xToY,
-#xTo2 {
+#xTo2,
+#positive-negative {
     display: none;
     font-size: 22px;
 }

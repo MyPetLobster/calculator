@@ -65,7 +65,7 @@ function brightenDisplay () {
 }
 function resetTimeout() {
     clearTimeout(displayTimeout);
-    displayTimeout = setTimeout(powerDownCalc, 30000); // 30 seconds
+    displayTimeout = setTimeout(powerDownCalc, 45000); // 45 seconds
 }
 function handleNumberButtons(input) {
     if (lastButtonPress === "equals") {
@@ -190,6 +190,7 @@ operators.forEach((opr) => opr.addEventListener("click", function(e) {
 }));
 // EQUALS BUTTON
 equals.addEventListener("click", () => {
+    
 
     lastButtonPress = "equals";
 
@@ -237,36 +238,47 @@ let multiplyButton = document.querySelector("#multiply");
 let minusButton = document.querySelector("#minus");
 let xSquared = document.querySelector("#xTo2");
 let xToY = document.querySelector("#xToY");
+let positiveNegative = document.querySelector("#positive-negative");
 
 
 xSquared.addEventListener("click", () => {
-    console.log(`oldNum = ${oldNum}`);
-    console.log(`newNum = ${newNum}`);
-    console.log(`operator= ${operator}`);
-
     oldNum = oldNum ** 2;
     displayText.textContent = oldNum;
     isFirstOperator = true;
     newNum = oldNum;
-    
 })
 
+positiveNegative.addEventListener("click", () => {
+    if (operator != "") {
+        newNum = +newNum * -1;
+        newNum = newNum.toString();
+        displayText.textContent = `${oldNum} ${operator} ${newNum}`;
+        isFirstOperator = false;
+        
+    } else {
+        newNum = +newNum * -1;
+        displayText.textContent = `${oldNum} ${operator} ${newNum}`;
+    }
+    
+})
 
 
 mode.addEventListener("click", () => {
     if (isOn) {
         if (isAltMode) {
-            divisionButton.textContent = "÷";
+            divisionButton.style.display = "initial"
             multiplyButton.style.display = "initial";
             minusButton.style.display = "initial";
+            positiveNegative.style.display = "none";
             xSquared.style.display = "none";
             xToY.style.display = "none";
     
             isAltMode = false;
         } else {
-            divisionButton.textContent = "±";
+            divisionButton.style.display = "none";
             multiplyButton.style.display = "none";
             minusButton.style.display = "none";
+            positiveNegative.style.display = "inline-block";
             xSquared.style.display = "inline-block";
             xToY.style.display = "inline-block";
     
