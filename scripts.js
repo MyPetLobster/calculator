@@ -10,6 +10,7 @@ let isFirstEquals = true;
 let isFirstOperator = true;
 let isFirstNum = true;
 let isAltMode = false;
+let isMuted = false;
 
 let displayTimeout;
 
@@ -34,6 +35,10 @@ const displayText = document.querySelector(".display-text");
 const displayInner = document.querySelector(".display-inner");
 const solarPanel = document.querySelector(".solar-panel");
 
+const clickAudio = new Audio("audio/click_004.ogg");
+clickAudio.volume = 0.1;
+const errorAudio = new Audio("audio/error_005.ogg");
+errorAudio.volume = 0.2;
 
 
 /////// FUNCTION DEFINITIONS ///////
@@ -122,11 +127,6 @@ function handleNumberButtons(input) {
     }
 }
 function handleOperatorButtons(input) {
-
-    alert(`oldNum = ${oldNum}`);
-    alert(`newNum = ${newNum}`);
-    alert(`operator = ${operator}`);
-
     lastButtonPress = "operator";
     
     if (input === "xy") {
@@ -178,6 +178,7 @@ function evaluate(prev, current, opr) {
         return formatDisplayText(oldNumConverted * newNumConverted);
     } else if (opr === "÷") {
         if (newNumConverted === 0) {
+            errorAudio.play();
             displayText.textContent = "can't do that";
             setTimeout(() => {
                 displayText.textContent = `${oldNumConverted} ${operator}`;
@@ -239,6 +240,7 @@ function deleteChar() {
     displayText.textContent = currentDisplay;
 }
 function error() {
+    errorAudio.play();
     displayText.textContent = "can't do that";
     setTimeout(clearAll, 2000);
 }
@@ -393,30 +395,72 @@ solarPanel.addEventListener("mouseout", () => {
 });
 // TIMEOUT FUNCTIONALITY
 calculatorButtons.forEach(button => {
-    button.addEventListener('click', handleButtonClick);
+    button.addEventListener('click', () => {
+        handleButtonClick;
+        clickAudio.play();
+    });
+    
 });
 
 
-
+const redButtons = document.querySelectorAll(".red-btn");
+const numberButtons = document.querySelectorAll(".number");
 /////// STYLING JAVASCRIPT ///////
 // Mode Button Styling on Hover
+numberButtons.forEach(btn => {
+    btn.addEventListener("mousedown", () => {
+        btn.style.fontWeight = "700";
+    })
+});
+numberButtons.forEach(btn => {
+    btn.addEventListener("mouseup", () => {
+        btn.style.fontWeight = "500";
+    })
+});
+redButtons.forEach(btn => {
+    btn.addEventListener("mousedown", () => {
+        btn.style.fontWeight = "700";
+        btn.style.color = "#8b8b8d";
+    })
+});
+redButtons.forEach(btn => {
+    btn.addEventListener("mouseup", () => {
+        btn.style.fontWeight = "500";
+        btn.style.color = "#d3d3d3";
+    })
+});
 mode.addEventListener("mousedown", () => {
-    mode.style.color = "#8b8b8d";
+    mode.style.color = "#737373";
+    mode.style.fontWeight = "700";
 });
 mode.addEventListener("mouseup", () => {
     mode.style.color = "#c0c0c1";
+    mode.style.fontWeight = "500";
+});
+
+
+
+const muteButton = document.querySelector("#mute");
+muteButton.addEventListener("click", () => {
+    if (!isMuted) {
+        clickAudio.volume = 0.0;
+        errorAudio.volume = 0.0;
+        isMuted = true;
+    } else {
+        clickAudio.volume = 0.1;
+        errorAudio.volume = 0.2;
+        isMuted = false;
+    }
 });
 
 
 
 
+////// DEBUGGING TOOLS ///////
 
-
-
-
-
-
-
+// alert(`oldNum = ${oldNum}`);
+// alert(`newNum = ${newNum}`);
+// alert(`operator = ${operator}`);
 
 // console.log(`oldNum = ${oldNum}`);
 // console.log(`newNum = ${newNum}`);
