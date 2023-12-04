@@ -1,5 +1,3 @@
-///// VARIABLE DECLARATIONS ///////
-
 // Global Variables
 let oldNum = "";
 let newNum = "";
@@ -23,21 +21,19 @@ const equals = document.querySelector("#equals")
 const numbers = document.querySelectorAll(".number");
 const operators = document.querySelectorAll(".operator");
 
+const divisionButton = document.querySelector("#divide");
+const multiplyButton = document.querySelector("#multiply");
+const minusButton = document.querySelector("#minus");
+const xSquaredButton = document.querySelector("#xTo2");
+const xToYButton = document.querySelector("#xToY");
+const posNegButton = document.querySelector("#positive-negative");
+const calculatorButtons = document.querySelectorAll('.button');
+
 // Outputs etc.
 const displayText = document.querySelector(".display-text");
 const displayInner = document.querySelector(".display-inner");
 const solarPanel = document.querySelector(".solar-panel");
 
-
-// TIMEOUT FUNCTIONALITY
-const calculatorButtons = document.querySelectorAll('.button');
-calculatorButtons.forEach(button => {
-  button.addEventListener('click', handleButtonClick);
-});
-function handleButtonClick() {
-    resetTimeout(); // Reset the timeout on button click
-    
-}
 
 
 /////// FUNCTION DEFINITIONS ///////
@@ -196,11 +192,13 @@ function error() {
     displayText.textContent = "can't do that";
     setTimeout(clearAll, 2000);
 }
+function handleButtonClick() {
+    resetTimeout(); // Reset the timeout on button click
+}
 
-// function boob() {
-//     alert("boob");
-//     displayText.textContent = "...u 8008";
-// }
+
+
+///// EVENT LISTENERS and ACTIONS /////
 // BACKSPACE
 backspace.addEventListener("click", () => {
     deleteChar();
@@ -249,18 +247,7 @@ equals.addEventListener("click", () => {
     displayText.textContent = currentDisplay;
     oldNum = currentDisplay.toString();
 });
-// Solar Easter Egg
-solarPanel.addEventListener("mouseover", () => {
-    if (isOn) {
-        dimDisplay();
-    }
-});
-solarPanel.addEventListener("mouseout", () => {
-    if (isOn) {
-        brightenDisplay();
-    }
-});
-// Clear Button
+// CLEAR BUTTON
 onClear.addEventListener("click", () => {
     if (isOn === false) {
         powerUpCalc();
@@ -268,24 +255,16 @@ onClear.addEventListener("click", () => {
     }
     clearAll();
 });
-
-let divisionButton = document.querySelector("#divide");
-let multiplyButton = document.querySelector("#multiply");
-let minusButton = document.querySelector("#minus");
-let xSquared = document.querySelector("#xTo2");
-let xToY = document.querySelector("#xToY");
-let positiveNegative = document.querySelector("#positive-negative");
-
-
-xSquared.addEventListener("click", () => {
+// SQUARED
+xSquaredButton.addEventListener("click", () => {
     oldNum = oldNum ** 2;
     displayText.textContent = oldNum;
     isFirstOperator = true;
     newNum = oldNum;
 
-})
-
-positiveNegative.addEventListener("click", () => {
+});
+// POSITIVE NEGATIVE TOGGLE
+posNegButton.addEventListener("click", () => {
     
     if (operator != "") {
         newNum = +newNum * -1;
@@ -309,41 +288,68 @@ positiveNegative.addEventListener("click", () => {
         isFirstOperator = true;
         
     }
-})
-
-
+});
+// MODE TOGGLE
 mode.addEventListener("click", () => {
     if (isOn) {
         if (isAltMode) {
             divisionButton.style.display = "initial"
             multiplyButton.style.display = "initial";
             minusButton.style.display = "initial";
-            positiveNegative.style.display = "none";
-            xSquared.style.display = "none";
-            xToY.style.display = "none";
+            posNegButton.style.display = "none";
+            xSquaredButton.style.display = "none";
+            xToYButton.style.display = "none";
     
             isAltMode = false;
         } else {
             divisionButton.style.display = "none";
             multiplyButton.style.display = "none";
             minusButton.style.display = "none";
-            positiveNegative.style.display = "inline-block";
-            xSquared.style.display = "inline-block";
-            xToY.style.display = "inline-block";
+            posNegButton.style.display = "inline-block";
+            xSquaredButton.style.display = "inline-block";
+            xToYButton.style.display = "inline-block";
     
             isAltMode = true;
         }
     }
     
-})
+});
+// Solar Easter Egg
+solarPanel.addEventListener("mouseover", () => {
+    if (isOn) {
+        dimDisplay();
+    }
+});
+solarPanel.addEventListener("mouseout", () => {
+    if (isOn) {
+        brightenDisplay();
+    }
+});
+// TIMEOUT FUNCTIONALITY
+calculatorButtons.forEach(button => {
+    button.addEventListener('click', handleButtonClick);
+});
 
 
+
+/////// STYLING JAVASCRIPT ///////
+// Mode Button Styling on Hover
 mode.addEventListener("mousedown", () => {
     mode.style.color = "#8b8b8d";
 });
 mode.addEventListener("mouseup", () => {
     mode.style.color = "#c0c0c1";
 });
+
+
+
+
+
+
+
+
+
+
 
 
 // console.log(`oldNum = ${oldNum}`);
