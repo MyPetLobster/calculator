@@ -83,7 +83,6 @@ function handleNumberButtons(input) {
     if (isFirstNum) {
         // Set max num length to 10 digits
         if ((newNum + input).length > 10) {
-            alert("max num length");
         } else {
             newNum += input;
         }
@@ -254,9 +253,6 @@ function formatDisplayText(text) {
     // Check if the text exceeds 10 characters
     text = text.toString();
 
-    // alert(text.length = `${text.length}`);
-    // alert(`text = ${text}`);
-
     if (text.length > 10) {
         // Convert the number to scientific notation
         const num = parseFloat(text).toExponential(6);
@@ -383,12 +379,24 @@ mode.addEventListener("click", () => {
     
 });
 // Solar Easter Egg
+
+
 solarPanel.addEventListener("mouseover", () => {
     if (isOn) {
         dimDisplay();
     }
 });
+solarPanel.addEventListener("touchstart", () => {
+    if (isOn) {
+        dimDisplay();
+    }
+})
 solarPanel.addEventListener("mouseout", () => {
+    if (isOn) {
+        brightenDisplay();
+    }
+});
+solarPanel.addEventListener("touchend", () => {
     if (isOn) {
         brightenDisplay();
     }

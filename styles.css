@@ -24,9 +24,13 @@ body {
     margin: 0;
     padding: 0;
 
-    background-color: rgb(221, 221, 221);
+    background-image: url("images/IMG_8853-b.jpeg");
+    background-size: 100%;
+    /* background-color: rgb(221, 221, 221); */
     color: #28393D;
 }
+
+
 .calculator-body {
     flex-direction: column;
 
@@ -38,8 +42,12 @@ body {
     border-radius: 4px;
 
     background-color: rgb(20, 57, 136);
-    box-shadow: -13px 17px 20px 0px rgba(0, 0, 0, 0.155),
-                -5px 3px 6px 0px rgba(0, 0, 0, 0.175);
+    /* box-shadow: -13px 17px 20px 0px rgba(0, 0, 0, 0.155),
+                -5px 3px 6px 0px rgba(0, 0, 0, 0.175); */
+    box-shadow: -21px 29px 47px -14px rgba(0,0,0,0.45),
+    -9px 9px 20px -6px rgba(0,0,0,0.45),
+    -9px 15px 38px 13px rgba(0,0,0,0.22),
+    -1px 12px 7px 0px rgba(0,0,0,0.22);
 }
 
 .calc-inner-border {
@@ -117,7 +125,9 @@ body {
 /* ----------- Solar Box ------------ */
 .solar-box {
     justify-content: space-between;
-    color:#d5dbdd
+    color:#d5dbdd;
+    user-select: none;
+    
 }
 .solar-title-text {
     font-family: "Dosis";
@@ -138,6 +148,13 @@ body {
     height: 35px;
     width: 35px;
     background-color: #28393D;
+    -webkit-touch-callout:none;
+    -webkit-user-select:none;
+    -khtml-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
 }
 
 
@@ -294,4 +311,11 @@ sup {
 
 #mute:hover {
     font-size: 15px;
+}
+
+
+@media (max-width: 660px) {
+    body {
+        background-size: cover;
+    }
 }
