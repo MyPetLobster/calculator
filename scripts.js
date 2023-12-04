@@ -29,6 +29,9 @@ const xSquaredButton = document.querySelector("#xTo2");
 const xToYButton = document.querySelector("#xToY");
 const posNegButton = document.querySelector("#positive-negative");
 const calculatorButtons = document.querySelectorAll('.button');
+const redButtons = document.querySelectorAll(".red-btn");
+const numberButtons = document.querySelectorAll(".number");
+const muteButton = document.querySelector("#mute");
 
 // Outputs etc.
 const displayText = document.querySelector(".display-text");
@@ -246,9 +249,6 @@ function error() {
 function handleButtonClick() {
     resetTimeout(); // Reset the timeout on button click
 }
-
-
-////// E NOTATION
 function formatDisplayText(text) {
     // Check if the text exceeds 10 characters
     text = text.toString();
@@ -260,7 +260,6 @@ function formatDisplayText(text) {
     }
     return text
 }
-
 
 
 ///// EVENT LISTENERS and ACTIONS /////
@@ -378,9 +377,19 @@ mode.addEventListener("click", () => {
     }
     
 });
+// MUTE BUTTON
+muteButton.addEventListener("click", () => {
+    if (!isMuted) {
+        clickAudio.volume = 0.0;
+        errorAudio.volume = 0.0;
+        isMuted = true;
+    } else {
+        clickAudio.volume = 0.1;
+        errorAudio.volume = 0.2;
+        isMuted = false;
+    }
+});
 // Solar Easter Egg
-
-
 solarPanel.addEventListener("mouseover", () => {
     if (isOn) {
         dimDisplay();
@@ -411,10 +420,7 @@ calculatorButtons.forEach(button => {
 });
 
 
-const redButtons = document.querySelectorAll(".red-btn");
-const numberButtons = document.querySelectorAll(".number");
 /////// STYLING JAVASCRIPT ///////
-// Mode Button Styling on Hover
 numberButtons.forEach(btn => {
     btn.addEventListener("mousedown", () => {
         btn.style.fontWeight = "700";
@@ -445,23 +451,6 @@ mode.addEventListener("mouseup", () => {
     mode.style.color = "#c0c0c1";
     mode.style.fontWeight = "500";
 });
-
-
-
-const muteButton = document.querySelector("#mute");
-muteButton.addEventListener("click", () => {
-    if (!isMuted) {
-        clickAudio.volume = 0.0;
-        errorAudio.volume = 0.0;
-        isMuted = true;
-    } else {
-        clickAudio.volume = 0.1;
-        errorAudio.volume = 0.2;
-        isMuted = false;
-    }
-});
-
-
 
 
 ////// DEBUGGING TOOLS ///////
