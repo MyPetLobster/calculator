@@ -190,7 +190,6 @@ operators.forEach((opr) => opr.addEventListener("click", function(e) {
 }));
 // EQUALS BUTTON
 equals.addEventListener("click", () => {
-    
 
     lastButtonPress = "equals";
 
@@ -246,20 +245,33 @@ xSquared.addEventListener("click", () => {
     displayText.textContent = oldNum;
     isFirstOperator = true;
     newNum = oldNum;
+
 })
 
 positiveNegative.addEventListener("click", () => {
+    
     if (operator != "") {
         newNum = +newNum * -1;
         newNum = newNum.toString();
         displayText.textContent = `${oldNum} ${operator} ${newNum}`;
         isFirstOperator = false;
-        
     } else {
         newNum = +newNum * -1;
         displayText.textContent = `${oldNum} ${operator} ${newNum}`;
     }
-    
+    if (lastButtonPress === "equals") {
+
+        oldNum = oldNum *-1;
+       
+        displayText.textContent = `${oldNum} `;
+        newNum = oldNum;
+        oldNum = "";
+        operator = "";
+
+        isFirstEquals = true;
+        isFirstOperator = true;
+        
+    }
 })
 
 
@@ -297,3 +309,6 @@ mode.addEventListener("mouseup", () => {
 });
 
 
+// console.log(`oldNum = ${oldNum}`);
+// console.log(`newNum = ${newNum}`);
+// console.log(`operator = ${operator}`);
