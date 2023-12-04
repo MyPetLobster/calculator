@@ -36,6 +36,7 @@ calculatorButtons.forEach(button => {
 });
 function handleButtonClick() {
     resetTimeout(); // Reset the timeout on button click
+    
 }
 
 
@@ -95,6 +96,10 @@ function handleNumberButtons(input) {
 }
 function handleOperatorButtons(input) {
     lastButtonPress = "operator";
+    
+    if (input === "xy") {
+        input = "^";
+    }
 
     if (isFirstOperator) {
         if (isFirstEquals) {
@@ -108,9 +113,7 @@ function handleOperatorButtons(input) {
         isFirstOperator = false;
     } else {
 
-
         oldNum = evaluate(oldNum, newNum, operator);
-
 
         operator = input;
         newNum = "";
@@ -183,6 +186,7 @@ numbers.forEach((num) => num.addEventListener("click", function(e) {
 // OPERATOR BUTTONS
 operators.forEach((opr) => opr.addEventListener("click", function(e) {
     handleOperatorButtons(e.target.textContent);
+    // console.log(`button value = ${e.target.textContent}`);
 }));
 // EQUALS BUTTON
 equals.addEventListener("click", () => {
@@ -234,6 +238,21 @@ let minusButton = document.querySelector("#minus");
 let xSquared = document.querySelector("#xTo2");
 let xToY = document.querySelector("#xToY");
 
+
+xSquared.addEventListener("click", () => {
+    console.log(`oldNum = ${oldNum}`);
+    console.log(`newNum = ${newNum}`);
+    console.log(`operator= ${operator}`);
+
+    oldNum = oldNum ** 2;
+    displayText.textContent = oldNum;
+    isFirstOperator = true;
+    newNum = oldNum;
+    
+})
+
+
+
 mode.addEventListener("click", () => {
     if (isOn) {
         if (isAltMode) {
@@ -264,3 +283,5 @@ mode.addEventListener("mousedown", () => {
 mode.addEventListener("mouseup", () => {
     mode.style.color = "#c0c0c1";
 });
+
+
