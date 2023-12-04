@@ -228,6 +228,18 @@ body {
     background-color: rgb(179, 41, 41);
 }
 
+
+
+.operator,
+#equals {
+    font-size: 28px;
+}
+
+#mode-toggle {
+    font-size: 16px;
+    color: #c0c0c1;
+}
+
 .footer {
     width: 100%;
     justify-content: space-around;
@@ -251,4 +263,15 @@ a {
 }
 a:hover {
     font-size: 14px;
+}
+
+#xToY,
+#xTo2 {
+    display: none;
+    font-size: 22px;
+}
+
+
+sup {
+    font-size: 12px;
 }

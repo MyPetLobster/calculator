@@ -11,6 +11,7 @@ let isOn = false;
 let isFirstEquals = true;
 let isFirstOperator = true;
 let isFirstNum = true;
+let isAltMode = false;
 
 let displayTimeout;
 
@@ -142,7 +143,6 @@ function clearAll() {
     isFirstOperator = true;
     isFirstEquals = true;
 }
-
 function deleteChar() {
     console.log(`oldNum = ${oldNum}`);
     console.log(`newNum = ${newNum}`);
@@ -172,51 +172,18 @@ function deleteChar() {
     displayText.textContent = currentDisplay;
 }
 
+// BACKSPACE
 backspace.addEventListener("click", () => {
     deleteChar();
 });
-
-
-// backspace.addEventListener("click", () => {
-//     console.log(`oldNum = ${oldNum}`);
-//     console.log(`newNum = ${newNum}`);
-//     console.log(`operator = ${operator}`);
-//     if (newNum === "") {
-//         if ((oldNum.length == 1) && (operator == "")) {
-//             console.log("clearing all");
-//             clearAll();
-//         } else {
-//             operator = "";
-
-//             displayText.textContent = `${oldNum} `;
-//             lastButtonPress = "number";
-//             newNum = oldNum;
-//             oldNum = "";
-//             isFirstOperator = true;
-//         }
-        
-//     } else {
-//         newNum = newNum.slice(0, -1);
-        
-//         handleNumberButtons("");
-       
-//     } 
-// });
-
-/////// EVENT LISTENERS and ACTIONS ///////
-
 // NUMBER BUTTONS
 numbers.forEach((num) => num.addEventListener("click", function(e) {
     handleNumberButtons(e.target.textContent);
-}))
-
+}));
 // OPERATOR BUTTONS
 operators.forEach((opr) => opr.addEventListener("click", function(e) {
     handleOperatorButtons(e.target.textContent);
-}))
-
-
-
+}));
 // EQUALS BUTTON
 equals.addEventListener("click", () => {
 
@@ -240,20 +207,18 @@ equals.addEventListener("click", () => {
 
     displayText.textContent = currentDisplay;
     oldNum = currentDisplay.toString();
-})
-
+});
 // Solar Easter Egg
 solarPanel.addEventListener("mouseover", () => {
     if (isOn) {
         dimDisplay();
     }
-})
+});
 solarPanel.addEventListener("mouseout", () => {
     if (isOn) {
         brightenDisplay();
     }
-})
-
+});
 // Clear Button
 onClear.addEventListener("click", () => {
     if (isOn === false) {
@@ -261,9 +226,41 @@ onClear.addEventListener("click", () => {
         isOn = true;
     }
     clearAll();
+});
+
+let divisionButton = document.querySelector("#divide");
+let multiplyButton = document.querySelector("#multiply");
+let minusButton = document.querySelector("#minus");
+let xSquared = document.querySelector("#xTo2");
+let xToY = document.querySelector("#xToY");
+
+mode.addEventListener("click", () => {
+    if (isOn) {
+        if (isAltMode) {
+            divisionButton.textContent = "÷";
+            multiplyButton.style.display = "initial";
+            minusButton.style.display = "initial";
+            xSquared.style.display = "none";
+            xToY.style.display = "none";
+    
+            isAltMode = false;
+        } else {
+            divisionButton.textContent = "±";
+            multiplyButton.style.display = "none";
+            minusButton.style.display = "none";
+            xSquared.style.display = "inline-block";
+            xToY.style.display = "inline-block";
+    
+            isAltMode = true;
+        }
+    }
+    
 })
 
 
-
-
-
+mode.addEventListener("mousedown", () => {
+    mode.style.color = "#8b8b8d";
+});
+mode.addEventListener("mouseup", () => {
+    mode.style.color = "#c0c0c1";
+});
