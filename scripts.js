@@ -187,6 +187,13 @@ function deleteChar() {
         } else {
             clearAll();
         }
+    } else if (newNum) {
+        if (newNum.length > 1) {
+            newNum = newNum.slice(0, -1);
+            currentDisplay = `${newNum}`;
+        } else {
+            clearAll();
+        }
     }
     displayText.textContent = currentDisplay;
 }
