@@ -134,6 +134,8 @@ function evaluate(prev, current, opr) {
         return oldNumConverted * newNumConverted;
     } else if (opr === "÷") {
         return oldNumConverted / newNumConverted;
+    } else if (opr === "^") {
+        return oldNumConverted ** newNumConverted;
     }
 }
 function clearAll() {
@@ -191,6 +193,10 @@ operators.forEach((opr) => opr.addEventListener("click", function(e) {
 // EQUALS BUTTON
 equals.addEventListener("click", () => {
 
+    // console.log(`oldNum = ${oldNum}`);
+    // console.log(`newNum = ${newNum}`);
+    console.log(`operator = ${operator}`);
+
     lastButtonPress = "equals";
 
     isFirstEquals = false;
@@ -207,6 +213,8 @@ equals.addEventListener("click", () => {
         currentDisplay = oldNumConverted * newNumConverted;
     } else if (operator === "÷") {
         currentDisplay = oldNumConverted / newNumConverted;
+    } else if (operator === "^") {
+        currentDisplay = oldNumConverted ** newNumConverted;
     }
 
     displayText.textContent = currentDisplay;
