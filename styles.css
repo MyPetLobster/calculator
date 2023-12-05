@@ -322,21 +322,3 @@ sup {
 }
 
 
-.sticker {
-    position: absolute;
-    top: 50px;
-    left: 150px;
-    font-size: 50px;
-    color: red;
-}
-
-#sticker{
-    position: absolute;
-    top: 50px;
-    left: 150px;
-  }
-  
-#mydivheader {
-    padding: 0px;
-    cursor: move;
-}
