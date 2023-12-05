@@ -147,8 +147,6 @@ function handleNumberButtons(input) {
             }
 
         }
-
-        
     }
 }
 function handleOperatorButtons(input) {
@@ -331,9 +329,6 @@ operators.forEach((opr) => opr.addEventListener("click", function(e) {
 equals.addEventListener("click", () => {
     equalsButton();
 });
-
-
-
 // CLEAR BUTTON
 onClear.addEventListener("click", () => {
     if (isOn === false) {
@@ -413,6 +408,7 @@ muteButton.addEventListener("click", () => {
         isMuted = false;
     }
 });
+
 // Solar Easter Egg
 solarPanel.addEventListener("mouseover", () => {
     if (isOn) {
@@ -434,6 +430,7 @@ solarPanel.addEventListener("touchend", () => {
         brightenDisplay();
     }
 });
+
 // TIMEOUT FUNCTIONALITY
 calculatorButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -480,7 +477,7 @@ mode.addEventListener("mouseup", () => {
 const validKeyOperators = ['+', '-', '*', 'x', 'X', '/', '=', 'Enter'];
 const validKeyNumbers = ['.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 document.addEventListener("keydown", function(event) {
-    
+
     // Disable default behavior 'return' key
     if (event.key === 'Enter') {
         event.preventDefault();
@@ -516,6 +513,7 @@ document.addEventListener("keydown", function(event) {
     
 
 });
+
 
 
 
