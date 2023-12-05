@@ -280,29 +280,7 @@ function formatDisplayText(text) {
     }
     return text
 }
-
-
-///// EVENT LISTENERS and ACTIONS /////
-// BACKSPACE
-backspace.addEventListener("click", () => {
-    deleteChar();
-});
-// NUMBER BUTTONS
-numbers.forEach((num) => num.addEventListener("click", function(e) {
-    handleNumberButtons(e.target.textContent);
-}));
-// OPERATOR BUTTONS
-operators.forEach((opr) => opr.addEventListener("click", function(e) {
-    handleOperatorButtons(e.target.textContent);
-    // console.log(`button value = ${e.target.textContent}`);
-}));
-// EQUALS BUTTON
-equals.addEventListener("click", () => {
-    console.log(`operator = ${operator}`);
-    console.log(`oldNum = ${oldNum}`);
-    console.log(`newNum = ${newNum}`);
-
-
+function equalsButton() {
     lastButtonPress = "equals";
 
     isFirstEquals = false;
@@ -332,7 +310,30 @@ equals.addEventListener("click", () => {
 
     displayText.textContent = formatDisplayText(currentDisplay);
     oldNum = currentDisplay.toString();
+}
+
+
+///// EVENT LISTENERS and ACTIONS /////
+// BACKSPACE
+backspace.addEventListener("click", () => {
+    deleteChar();
 });
+// NUMBER BUTTONS
+numbers.forEach((num) => num.addEventListener("click", function(e) {
+    handleNumberButtons(e.target.textContent);
+}));
+// OPERATOR BUTTONS
+operators.forEach((opr) => opr.addEventListener("click", function(e) {
+    handleOperatorButtons(e.target.textContent);
+    // console.log(`button value = ${e.target.textContent}`);
+}));
+// EQUALS BUTTON
+equals.addEventListener("click", () => {
+    equalsButton();
+});
+
+
+
 // CLEAR BUTTON
 onClear.addEventListener("click", () => {
     if (isOn === false) {
@@ -473,6 +474,49 @@ mode.addEventListener("mouseup", () => {
     mode.style.color = "#c0c0c1";
     mode.style.fontWeight = "500";
 });
+
+
+// KEYBOARD SUPPORT
+const validKeyOperators = ['+', '-', '*', 'x', 'X', '/', '=', 'Enter'];
+const validKeyNumbers = ['.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+document.addEventListener("keydown", function(event) {
+    
+    // Disable default behavior 'return' key
+    if (event.key === 'Enter') {
+        event.preventDefault();
+    }
+
+    // Disable default behavior for space bar
+    if (event.keyCode === '32') {
+        event.preventDefault();
+    }
+
+    const keyPress = event.key;
+    
+    // Handle Number Input
+    if (validKeyNumbers.includes(keyPress)) {
+        handleNumberButtons(keyPress);
+        
+    // Handle Operator Input
+    } else if (validKeyOperators.includes(keyPress)) {
+        if (keyPress === '=' || keyPress === 'Enter') {
+            equalsButton();
+        } else if (keyPress === '*' || keyPress === 'x' || keyPress === 'X') {
+            handleOperatorButtons('×');
+        } else if (keyPress === '/') {
+            handleOperatorButtons('÷');
+        } else {
+            handleOperatorButtons(keyPress);
+        }
+    // Handle 'backspace' key
+    } else if (keyPress === 'Backspace') {
+        deleteChar();
+    }
+
+    
+
+});
+
 
 
 ////// DEBUGGING TOOLS ///////

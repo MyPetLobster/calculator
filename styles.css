@@ -293,16 +293,17 @@ a:hover {
 #xTo2,
 #positive-negative {
     display: none;
-    font-size: 22px;
+    font-size: 28px;
 }
 
 
 sup {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 
 #mute {
+    cursor: pointer;
     text-decoration: none;
     border: none;
     background: transparent;
