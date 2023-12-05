@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Dosis:wght@300;400;500;600;700&display=swap');
 @font-face {
-    font-family: "Digital7", sans-serif;
+    font-family: "Digital7";
     src: url("fonts/Digital7-rg1mL.ttf");
 }
 
@@ -244,7 +244,9 @@ body {
 .red-btn:after {
     background-color: rgb(179, 41, 41);
 }
-
+#on-c {
+    font-size: 16px;
+}
 .number {
     font-size: 24px;
     
@@ -258,7 +260,7 @@ body {
 }
 
 #mode-toggle {
-    font-size: 16px;
+    font-size: 15px;
     color: #c0c0c1;
 }
 
@@ -317,4 +319,24 @@ sup {
     body {
         background-size: cover;
     }
+}
+
+
+.sticker {
+    position: absolute;
+    top: 50px;
+    left: 150px;
+    font-size: 50px;
+    color: red;
+}
+
+#sticker{
+    position: absolute;
+    top: 50px;
+    left: 150px;
+  }
+  
+#mydivheader {
+    padding: 0px;
+    cursor: move;
 }
