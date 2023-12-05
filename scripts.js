@@ -75,6 +75,13 @@ function resetTimeout() {
     displayTimeout = setTimeout(powerDownCalc, 45000); // 45 seconds
 }
 function handleNumberButtons(input) {
+    // Only allow one decimal per number
+    if (input === ".") {
+        if (newNum.includes(".")) {
+            return;
+        }
+    }
+
     if (lastButtonPress === "equals") {
         isFirstNum = true;
         oldNum = "";
