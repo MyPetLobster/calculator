@@ -158,8 +158,12 @@ function handleOperatorButtons(input) {
 
     if (isFirstOperator) {
         if (isFirstEquals) {
-            oldNum = newNum;
+            oldNum = String(newNum);
         }   
+
+        // alert(`oldNum = ${oldNum}, newNum = ${newNum}`);
+        // alert(`oldNum.length = ${String(oldNum).length}`);
+
         operator = input;
         newNum = "";
         // Set "currentDisplay" to be used by handleNum on second operand
